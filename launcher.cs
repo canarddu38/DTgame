@@ -530,7 +530,7 @@ namespace dtlauncherform {
 			int b = 0;
 			foreach(string linechunk in map)
 			{
-				if((b+map.Length/2)==y)
+				if((y+map.Length/2)==b)
 				{
 					char[] stringbuilder = linechunk.ToCharArray();
 					stringbuilder[x+(linechunk.Length/2)] = '0';
