@@ -356,10 +356,10 @@ namespace dtlauncherform {
 			// menu.Click += new EventHandler(this.background_click);
 			
 			minimap = new Label();
-            minimap.Size = new Size(200, 200);
+            minimap.Size = new Size(300, 300);
 			minimap.BackColor = Color.FromArgb(50, 50, 50);
 			minimap.ForeColor = Color.White;
-            minimap.Location = new Point((1280-200), 0);
+            minimap.Location = new Point((1280-300), 0);
 			// background.Image = Image.FromFile("assets/exit.png");
 			minimap.Text = "";
 			minimap.Visible = true;
@@ -461,19 +461,19 @@ namespace dtlauncherform {
 			{
 				if(lookdir == "x+")
 				{
-					lookdir = "y+";
+					lookdir = "y-";
 				}
 				else if(lookdir == "x-")
 				{
-					lookdir = "y-";
+					lookdir = "y+";
 				}
 				else if(lookdir == "y+")
 				{
-					lookdir = "x-";
+					lookdir = "x+";
 				}
 				else if(lookdir == "y-")
 				{
-					lookdir = "x+";
+					lookdir = "x-";
 				}
 				update();
 			}
@@ -481,19 +481,19 @@ namespace dtlauncherform {
 			{
 				if(lookdir == "x+")
 				{
-					lookdir = "y-";
+					lookdir = "y+";
 				}
 				else if(lookdir == "x-")
 				{
-					lookdir = "y+";
+					lookdir = "y-";
 				}
 				else if(lookdir == "y+")
 				{
-					lookdir = "x+";
+					lookdir = "x-";
 				}
 				else if(lookdir == "y-")
 				{
-					lookdir = "x-";
+					lookdir = "x+";
 				}
 				update();
 			}
@@ -533,7 +533,23 @@ namespace dtlauncherform {
 				if((y+map.Length/2)==b)
 				{
 					char[] stringbuilder = linechunk.ToCharArray();
-					stringbuilder[x+(linechunk.Length/2)] = '0';
+					if(lookdir == "x+")
+					{
+						stringbuilder[x+(linechunk.Length/2)] = '>';
+					}
+					else if(lookdir == "x-")
+					{
+						stringbuilder[x+(linechunk.Length/2)] = '<';
+					}
+					else if(lookdir == "y+")
+					{
+						stringbuilder[x+(linechunk.Length/2)] = 'v';
+					}
+					else if(lookdir == "y-")
+					{
+						stringbuilder[x+(linechunk.Length/2)] = '^';
+					}
+					
 
 					minmaptext = new string(stringbuilder);
 				}
@@ -544,18 +560,100 @@ namespace dtlauncherform {
 				minimap.Text += "\n"+minmaptext;
 				b++;
 			}
+			minimap.Text += "\n"+"X:"+x.ToString()+", Y: "+y.ToString()+", direcion:"+lookdir;
 			
 			
 			
 			Graphics g = background.CreateGraphics();
 			g.Clear(Color.Transparent);
+			
+		}
+		private int getdistance(string orientation, string[] map)
+		{
 			string chunk = map[(map.Length / 2)+y];
-			char c = chunk[(chunk.Length / 2)+x];
-			// MessageBox.Show("map: "+map.Length+y+" | chunk:"+chunk.Length+x);
-			MessageBox.Show("X: "+x.ToString()+", Y: "+y.ToString()+", dir: "+lookdir+" | "+c.ToString());
-			if(lookdir == "x+")
+			string verticalchunk = 
+			int c = 0;
+			foreach (string line in map)
 			{
-				
+				char temp = chunk[(chunk.Length / 2)+x];
+				c++;
+			}
+			char c = chunk[(chunk.Length / 2)+x];
+			if(orientation == "x+")
+			{
+				if(chunk[(chunk.Length / 2)+x+1] == "#")
+				{
+					return 1;
+				}
+				else if(chunk[(chunk.Length / 2)+x+2] == "#")
+				{
+					return 2;
+				}
+				else if(chunk[(chunk.Length / 2)+x+3] == "#")
+				{
+					return 3;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+			else if(orientation == "x-")
+			{
+				if(chunk[(chunk.Length / 2)+x-1] == "#")
+				{
+					return 1;
+				}
+				else if(chunk[(chunk.Length / 2)+x-2] == "#")
+				{
+					return 2;
+				}
+				else if(chunk[(chunk.Length / 2)+x-3] == "#")
+				{
+					return 3;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+			else if(orientation == "y+")
+			{
+				if(chunk[(chunk.Length / 2)+x+1] == "#")
+				{
+					return 1;
+				}
+				else if(chunk[(chunk.Length / 2)+x+2] == "#")
+				{
+					return 2;
+				}
+				else if(chunk[(chunk.Length / 2)+x+3] == "#")
+				{
+					return 3;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+			else if(orientation == "y-")
+			{
+				if(chunk[(chunk.Length / 2)+x+1] == "#")
+				{
+					return 1;
+				}
+				else if(chunk[(chunk.Length / 2)+x+2] == "#")
+				{
+					return 2;
+				}
+				else if(chunk[(chunk.Length / 2)+x+3] == "#")
+				{
+					return 3;
+				}
+				else
+				{
+					return 0;
+				}
 			}
 		}
 	}
